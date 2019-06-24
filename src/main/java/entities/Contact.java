@@ -2,12 +2,28 @@ package entities;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Pattern;
+
+@Entity
 public class Contact {
 
+	@Id
+	@GeneratedValue
 	private Integer id;
+	
 	private String firstName;
 	private String secondName;
+	
+	@PastOrPresent
 	private Date dateOfBirth;
+	
+	@Pattern(regexp="^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*\r\n" + 
+			"      @[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$;")
 	private String emailAddress;
 	
 	public Contact(){
@@ -62,9 +78,12 @@ public class Contact {
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Contact [id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", dateOfBirth="
+				+ dateOfBirth + ", emailAddress=" + emailAddress + "]";
+	}
 	
 	
 }
