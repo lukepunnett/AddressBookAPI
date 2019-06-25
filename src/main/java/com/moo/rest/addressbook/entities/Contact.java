@@ -1,13 +1,11 @@
-package entities;
+package com.moo.rest.addressbook.entities;
 
-import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Pattern;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Contact {
@@ -18,24 +16,22 @@ public class Contact {
 	
 	private String firstName;
 	private String secondName;
-	
-	@PastOrPresent
-	private Date dateOfBirth;
-	
-	@Pattern(regexp="^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*\r\n" + 
-			"      @[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$;")
+
+
 	private String emailAddress;
+	
+	@OneToMany(mappedBy="contact")
+	private List<Address> addresses;
 	
 	public Contact(){
 		super();
 	}
 	
-	public Contact(Integer id, String firstName, String secondName, Date dateOfBirth, String emailAddress) {
+	public Contact(Integer id, String firstName, String secondName, String emailAddress) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.secondName = secondName;
-		this.dateOfBirth = dateOfBirth;
 		this.emailAddress = emailAddress;
 	}
 
@@ -62,15 +58,7 @@ public class Contact {
 	public void setSecondName(String secondName) {
 		this.secondName = secondName;
 	}
-	
-	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
-	
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-	
+
 	public String getEmailAddress() {
 		return emailAddress;
 	}
@@ -79,11 +67,20 @@ public class Contact {
 		this.emailAddress = emailAddress;
 	}
 
+	
+	public List<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
+	}
+
 	@Override
 	public String toString() {
-		return "Contact [id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", dateOfBirth="
-				+ dateOfBirth + ", emailAddress=" + emailAddress + "]";
+		return "Contact [id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", emailAddress="
+				+ emailAddress + "]";
 	}
-	
+
 	
 }
