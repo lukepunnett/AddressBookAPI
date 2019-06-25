@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Arrays;
 
-import org.apache.tomcat.jni.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import com.google.common.base.Optional;
-import com.google.common.net.MediaType;
 import com.moo.rest.addressbook.entities.Contact;
-import com.moo.rest.addressbook.entities.ContactRepository;
 import com.moo.rest.addressbook.entities.ContactResource;
 
 @RunWith(SpringRunner.class)
