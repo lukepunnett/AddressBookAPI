@@ -18,7 +18,7 @@ There is also some working examples of test coverage for the controller testing 
 
 # API EndPoints
 
-The API endpoints are best consumed for testing purposes using POSTMAN. When 
+The API endpoints are best consumed for testing purposes using POSTMAN. When testing the POST method in Postman it is best to copy the original JSON object from a GET request and make a slight change, the body type should be raw with type as JSON(application/json.)
 
 GET EndPoints:
 
@@ -32,20 +32,91 @@ Example:
 - /contacts/{id}
 Returns a contact with that specific id
 
+Example:
+
+{ "firstName" : "Tony", "secondName" : "Stark", "emailAddress" : "tony.stark@avengers.com", "_links" : { "all-contacts" : { "href" : "http://localhost:8080/contacts" } } }
 
 - /contacts/{id}/addresses
 Returns all addresses for a contact with a specific id
 
+Example:
+
+[{"id":8888,"doorNumber":95,"streetName":"London Road","town":"Bromley","postCode":"ABC 321"},{"id":9999,"doorNumber":59,"streetName":"London Road","town":"Bromley","postCode":"ABC 321"}]
+
 - /addresses/{id}
 Returns an address with a specific id
 
+Example:
+
+{
+    "doorNumber": 95,
+    "streetName": "London Road",
+    "town": "Bromley",
+    "postCode": "ABC 321",
+    "_links": {
+        "self": {
+            "href": "http://localhost:8080/addresses/8888"
+        },
+        "address": {
+            "href": "http://localhost:8080/addresses/8888"
+        },
+        "contact": {
+            "href": "http://localhost:8080/addresses/8888/contact"
+        }
+    }
+}
+
+
+
 - /contacts/byName/{name}
 Returns any contacts with an exact match surname.
+
+Example: http://localhost:8080/contacts/byName/Stark
+
+[
+    {
+        "id": 8001,
+        "firstName": "Tony",
+        "secondName": "Stark",
+        "emailAddress": "tony.stark@avengers.com",
+        "addresses": [
+            {
+                "id": 8888,
+                "doorNumber": 95,
+                "streetName": "London Road",
+                "town": "Bromley",
+                "postCode": "ABC 321"
+            },
+            {
+                "id": 9999,
+                "doorNumber": 59,
+                "streetName": "London Road",
+                "town": "Bromley",
+                "postCode": "ABC 321"
+            }
+        ]
+    }
+]
+
+
 
 POST EndPoints:
 
 /contacts
 - Allows you to post a contact to the database
+
+Example - Posting the following:
+
+    {
+        "firstName": "Tony2",
+        "secondName": "Stark2",
+        "emailAddress": "tony.stark2@avengers.com",
+        "address":[]
+    }
+   
+   will return a status of 201 - Created.
+    
+    
 
 DELETE EndPoints:
 
